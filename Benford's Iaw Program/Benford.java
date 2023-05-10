@@ -15,7 +15,7 @@ class BenfordsLaw{
 
     public static void printMenu(){ 
         /*
-        * Displays a menu for the user. Lists the numbers the user needs 
+        * Displays a menu for the user and lists the numbers the user needs 
         * to input to access the functions of the sales system.
         */
         System.out.println(/* Customer and Sales System\n
