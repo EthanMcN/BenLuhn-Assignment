@@ -23,3 +23,23 @@ class Credit_Validation {
             sum1 += oddNumber;
         }
         
+         // Even Digits
+        for (int i = 1; i < String.valueOf(reversednum).length(); i+=2) {
+            int evenNumber = (String.valueOf(reversednum).charAt(i)) * 2;
+            if (evenNumber > 9) {
+                evenNumber -= 9;
+            }
+            sum2 += evenNumber;
+        }
+
+        // Gathering Total Sum
+        sum_total = sum1 + sum2;
+        System.out.println(sum_total);
+        if (sum_total%10 == 0){
+            System.out.println("Valid Credit Card.");
+        }
+        else{
+            System.out.println("Invalid Credit Card.");
+        }
+    }
+}
