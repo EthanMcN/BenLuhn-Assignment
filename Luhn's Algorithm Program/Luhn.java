@@ -5,7 +5,7 @@ class Credit_Validation {
         int sum_total = 0;
         
         // Reverses the card number that the user has entered
-        String cardnum = "1234567890";
+        String cardnum = "1234567890";      
 
         String reversednum = cardnum;
  
@@ -22,8 +22,8 @@ class Credit_Validation {
             int oddNumber = (reversednum.charAt(i));
             sum1 += oddNumber;
         }
-        
-         // Even Digits
+
+        // Even Digits
         for (int i = 1; i < String.valueOf(reversednum).length(); i+=2) {
             int evenNumber = (String.valueOf(reversednum).charAt(i)) * 2;
             if (evenNumber > 9) {
@@ -41,4 +41,7 @@ class Credit_Validation {
             System.out.println("Invalid Credit Card.");
         }
     }
+}
+class Data{
+    System.out.println(data);
 }
