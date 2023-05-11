@@ -3,13 +3,14 @@
 // Importations needed for the program to function
 import java.util.Scanner;
 import java.util.function.*;
-//import java.lang.Math.*;
-//import java.text.DecimalFormat;
+import java.lang.Math.*;
+import java.text.DecimalFormat;
 import java.io.*;
 import java.io.File;
 import java.io.FileReader;
-
 import org.jfree.chart.JfreeChart;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 
 
 class BenfordsLaw{
@@ -19,7 +20,7 @@ class BenfordsLaw{
         * Opens and reads the sales file for use later
         */
         File datafile = new File("sales.csv");
-        Scanner fileReader = new Scanner(datafile);
+        BufferedReader fileReader = new Scanner(datafile);
         fileReader.useDelimiter(",");
         while(fileReader.hasNextLine()){
             String data = fileReader.nextLine();
@@ -55,7 +56,9 @@ class BenfordsLaw{
         int length = 0;
         
         // For loops that analyze the file in order to obtain the first digits
-        for (int line )
+        for (int line in file){
+            if "1" 
+        }
 
         double first_percent = Math.round(num1/length*100, 2);
         double second_percent = Math.round(num2/length*100, 2);
@@ -83,12 +86,12 @@ class BenfordsLaw{
     }
     
     
-    public static void generateGraph(){
+    public static void generateGraph(double[] all_percentages){
         // The x values that display which bar is which.
         String[] x_values = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
         // The y values that determine how high each bar is based on the percentages.
-        String y_values = all_percentages
+        String y_values = all_percentages;
         String y_value1 = ("1 = " + String(y_values[0]) + "%");
         String y_value2 = "2 = " + str(y_values[1]) + "%";
         String y_value3 = "3 = " + str(y_values[2]) + "%";
@@ -100,15 +103,15 @@ class BenfordsLaw{
         String y_value9 = "9 = " + str(y_values[8]) + "%";
 
         // Plots each bar on each x and y value accordingly.
-        (x_values[0], y_values[0], color="red")
-        (x_values[1], y_values[1], color="green")
-        (x_values[2], y_values[2], color="blue")
-        (x_values[3], y_values[3], color="orange")
-        (x_values[4], y_values[4], color="yellow")
-        (x_values[5], y_values[5], color="pink")
-        (x_values[6], y_values[6], color="purple")
-        (x_values[7], y_values[7], color="black")
-        (x_values[8], y_values[8], color="brown")
+        (x_values[0], y_values[0], color="red");
+        (x_values[1], y_values[1], color="green");
+        (x_values[2], y_values[2], color="blue");
+        (x_values[3], y_values[3], color="orange");
+        (x_values[4], y_values[4], color="yellow");
+        (x_values[5], y_values[5], color="pink");
+        (x_values[6], y_values[6], color="purple");
+        (x_values[7], y_values[7], color="black");
+        (x_values[8], y_values[8], color="brown");
 
         // Labels the x axis, y axis, creates a legend, gives the graph a title, and shows the graph    
         title("Benford's Law Distribution Leading Digit")
