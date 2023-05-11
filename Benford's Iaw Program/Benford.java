@@ -13,8 +13,12 @@ import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.CategoryDataset;
-import org.jfree.data.catagory.DefaultCategoryDataset;
 import org.jfree.ui.TextAnchor;
+import org.jfree.chart.ChartPanel;  
+import org.jfree.chart.plot.PlotOrientation; 
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.ui.ApplicationFrame; 
+import org.jfree.ui.RefineryUtilities;
 import org.jfree.chart.renderer.category.StandardBarPainter;
 import java.util.Scanner;
 import java.util.function.*;
@@ -59,21 +63,57 @@ class BenfordsLaw{
     }
 
 
-    public static int analyzeFile(){
-        int num1 = 0;
-        int num2 = 0;
-        int num3 = 0;
-        int num4 = 0;
-        int num5 = 0;
-        int num6 = 0;
-        int num7 = 0;
-        int num8 = 0;
-        int num9 = 0;
-        int length = 0;
+    public static double[] analyzeFile(){
+        double num1 = 0.0;
+        double num2 = 0.0;
+        double num3 = 0.0;
+        double num4 = 0.0;
+        double num5 = 0.0;
+        double num6 = 0.0;
+        double num7 = 0.0;
+        double num8 = 0.0;
+        double num9 = 0.0;
+        double length = 0.0;
         
         // For loops that analyze the file in order to obtain the first digits
         for (int line in file){
-            if "1" 
+            if ("1" in line[4]){
+                num1 = num1 + 1;
+                length = length + 1;
+            }
+            if ("2" in line[4]){
+                num2 = num2 + 1;
+                length = length + 1;
+            }
+            if ("3" in line[4]){
+                num3 = num3 + 1;
+                length = length + 1;
+            }
+            if ("4" in line[4]){
+                num4 = num4 + 1;
+                length = length + 1;
+            }
+            if ("5" in line[4]){
+                num5 = num5 + 1;
+                length = length + 1;
+            }
+            if ("6" in line[4]){
+                num6 = num6 + 1;
+                length = length + 1;
+            }
+            if ("7" in line[4]){
+                num7 = num7 + 1;
+                length = length + 1;
+            }
+            if ("8" in line[4]){
+                num8 = num8 + 1;
+                length = length + 1;
+            }
+            if ("9" in line[4]){
+                num9 = num9 + 1;
+                length = length + 1;
+            }
+
         }
 
         double first_percent = Math.round(num1/length*100, 2);
@@ -90,12 +130,12 @@ class BenfordsLaw{
         
         // Benford's Law application
         if (29 <= first_percent <= 32){
-            println("1: " + first_percent + "2: " + second_percent + "3: " + third_percent + "4: " + fourth_percent + "5: " + fifth_percent + "6: " + sixth_percent + "7: " + seventh_percent + "8: " + eighth_percent + "9: " + ninth_percent);
-            println("The data suggests that fraud did not occur.");
+            System.out.println("1: " + first_percent + "2: " + second_percent + "3: " + third_percent + "4: " + fourth_percent + "5: " + fifth_percent + "6: " + sixth_percent + "7: " + seventh_percent + "8: " + eighth_percent + "9: " + ninth_percent);
+            System.out.println("The data suggests that fraud did not occur.");
         }
         else{
-            println("1: " + first_percent + "2: " + second_percent + "3: " + third_percent + "4: " + fourth_percent + "5: " + fifth_percent + "6: " + sixth_percent + "7: " + seventh_percent + "8: " + eighth_percent + "9: " + ninth_percent);
-            println("The data suggest that there was fraud present.");
+            System.out.println("1: " + first_percent + "2: " + second_percent + "3: " + third_percent + "4: " + fourth_percent + "5: " + fifth_percent + "6: " + sixth_percent + "7: " + seventh_percent + "8: " + eighth_percent + "9: " + ninth_percent);
+            System.out.println("The data suggest that there was fraud present.");
         }
 
         return all_percentages;
@@ -107,16 +147,16 @@ class BenfordsLaw{
         String[] x_values = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
         // The y values that determine how high each bar is based on the percentages.
-        String y_values = all_percentages;
-        String y_value1 = ("1 = " + String(y_values[0]) + "%");
-        String y_value2 = "2 = " + str(y_values[1]) + "%";
-        String y_value3 = "3 = " + str(y_values[2]) + "%";
-        String y_value4 = "4 = " + str(y_values[3]) + "%";
-        String y_value5 = "5 = " + str(y_values[4]) + "%";
-        String y_value6 = "6 = " + str(y_values[5]) + "%";
-        String y_value7 = "7 = " + str(y_values[6]) + "%";
-        String y_value8 = "8 = " + str(y_values[7]) + "%";
-        String y_value9 = "9 = " + str(y_values[8]) + "%";
+        String[] y_values = Double.toString(all_percentages);
+        String y_value1 = ("1 = " + (y_values[0]) + "%");
+        String y_value2 = "2 = " + (y_values[1]) + "%";
+        String y_value3 = "3 = " + (y_values[2]) + "%";
+        String y_value4 = "4 = " + (y_values[3]) + "%";
+        String y_value5 = "5 = " + (y_values[4]) + "%";
+        String y_value6 = "6 = " + (y_values[5]) + "%";
+        String y_value7 = "7 = " + (y_values[6]) + "%";
+        String y_value8 = "8 = " + (y_values[7]) + "%";
+        String y_value9 = "9 = " + (y_values[8]) + "%";
 
         // Plots each bar on each x and y value accordingly.
         (x_values[0], y_values[0], color="red");
