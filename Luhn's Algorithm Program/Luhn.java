@@ -34,7 +34,6 @@ class Credit_Validation {
 
         // Gathering Total Sum
         sum_total = sum1 + sum2;
-        System.out.println(sum_total);
         if (sum_total%10 == 0){
             System.out.println("Valid Credit Card.");
         }
