@@ -1,18 +1,77 @@
 // Benford's Law portion in Java
-
+ 
 // Importations needed for the program to function
 import java.util.Scanner;
 //import java.lang.Math.*;
 //import java.text.DecimalFormat;
-//import javafx.application.Application;
-//import java.io.File;
+import java.io.File;
+import java.io.FileReader;
+
+import org.jfree.chart.JfreeChart;
 
 
 class BenfordsLaw{
 
+    for(int i=0; i<5; i++){
+        String varib =
+    }
+    public static String loadFile(){
+        /*
+        * Opens and reads the sales file for use later
+        */
+        String datafile = new File("sales.csv");
+        Scanner fileReader = new Scanner(datafile);
+        while(fileReader.hasNextLine()){
+            String data = fileReader.nextLine();
+            System.out.println(data);
+        }
+
+
+         
+    }
+
     public static void main(String[]args){
 
         Scanner reader = new Scanner(System.in);
+
+        // The variables that the user uses to access the different parts of the program
+    String userInput = "";
+    String fileLoad = "1";
+    String fileAnalyze = "2";
+    String graphGeneration = "3";
+    String exitCondition = "9";
+    String all_percentages = "";
+    String percentages = "";
+
+    // Checks which number the user inputted and directa them to the correct function
+    while (userInput != exitCondition){
+        printMenu();
+        userInput = reader.nextLine();
+
+        if (userInput.equals(fileLoad)){
+            String data = loadFile();
+        } 
+
+        else if(userInput.equals(fileAnalyze)){
+            if(data.equals("")){
+                System.out.println("You need to load the file first.");
+            }
+            else{
+                all_percentages = analyzeFile(file);
+            }
+        }
+
+        else if(userInput.equals(graphGeneration)){
+            if(all_percentages.equals("")){
+                System.out.println("You need to analyze the file first.");
+            }
+        }
+
+        else{
+            System.out.println("You need to input a valid option (A number from 1-9).");
+        }
+
+    }
 
         reader.close();
     }
@@ -30,7 +89,7 @@ class BenfordsLaw{
     Enter menu option (1-9) */);
     }
 
-/*
+
     public static int analyzeFile(){
         int num1 = 0;
         int num2 = 0;
@@ -70,10 +129,37 @@ class BenfordsLaw{
 
         return all_percentages
     }
-    */
+    
+    
+    public static void generateGraph(){
+        // The x values that display which bar is which.
+        String[] x_values = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
-    
-    
+        // The y values that determine how high each bar is based on the percentages.
+        String y_values = all_percentages
+        String y_value1 = ("1 = " + String(y_values[0]) + "%");
+        String y_value2 = "2 = " + str(y_values[1]) + "%"
+        String y_value3 = "3 = " + str(y_values[2]) + "%"
+        String y_value4 = "4 = " + str(y_values[3]) + "%"
+        String y_value5 = "5 = " + str(y_values[4]) + "%"
+        String y_value6 = "6 = " + str(y_values[5]) + "%"
+        String y_value7 = "7 = " + str(y_values[6]) + "%"
+        String y_value8 = "8 = " + str(y_values[7]) + "%"
+        String y_value9 = "9 = " + str(y_values[8]) + "%"
+
+        // Plots each bar on each x and y value accordingly.
+        (x_values[0], y_values[0], color="red")
+        (x_values[1], y_values[1], color="green")
+        (x_values[2], y_values[2], color="blue")
+        (x_values[3], y_values[3], color="orange")
+        (x_values[4], y_values[4], color="yellow")
+        (x_values[5], y_values[5], color="pink")
+        (x_values[6], y_values[6], color="purple")
+        (x_values[7], y_values[7], color="black")
+        (x_values[8], y_values[8], color="brown")
+    }
+   
 }
+
 
 
