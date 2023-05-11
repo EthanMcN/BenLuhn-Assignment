@@ -1,6 +1,21 @@
 // Benford's Law portion in Java
  
 // Importations needed for the program to function
+import org.jfree.chart.JfreeChart;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.axis.CategoryAxis;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.labels.CategoryItemLabelGenerator;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.catagory.DefaultCategoryDataset;
+import org.jfree.ui.TextAnchor;
+import org.jfree.chart.renderer.category.StandardBarPainter;
 import java.util.Scanner;
 import java.util.function.*;
 import java.lang.Math.*;
@@ -8,9 +23,10 @@ import java.text.DecimalFormat;
 import java.io.*;
 import java.io.File;
 import java.io.FileReader;
-import org.jfree.chart.JfreeChart;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.awt.Color;
+import java.io.IOException;
 
 
 class BenfordsLaw{
