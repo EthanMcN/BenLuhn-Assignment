@@ -1,6 +1,7 @@
 // Benford's Law portion in Java
  
 // Importations needed for the program to function
+package 
 import org.jfree.chart.JfreeChart;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
@@ -35,10 +36,30 @@ import java.io.IOException;
 
 class BenfordsLaw{
 
-    public static String loadFile(String csvFile){
-        /*
-        * Opens and reads the sales file for use later
-        */
+    public static String[] loadFile(String delimiter){
+        /**
+         * Opens and reads the sales file for use late
+         * 
+         * @delimiter   Sets the delimiter for the file reading
+         */
+        
+         BufferedReader reader;
+
+         try {
+             reader = new BufferedReader(new FileReader("sales.csv"));
+             String line = reader.readLine();
+ 
+             while (line != null) {
+                 System.out.println(line);
+                 // read next line
+                 line = reader.readLine();
+             }
+ 
+             reader.close();
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+        
         File datafile = new File("sales.csv");
         BufferedReader fileReader = new Scanner(datafile);
         fileReader.useDelimiter(",");
@@ -180,9 +201,17 @@ class BenfordsLaw{
         // Writes the sales data onto the results csv file
         String table = "1" + "," + "2" + "," + "3" + "," + "4" + "," + "5", "," + "6" + "," + "7" + "," + "8" + "," + "9\n" + str(percentages[0]) + "," + str(percentages[1]) + "," + str(percentages[2]) + "," + str(percentages[3]) + "," + str(percentages[4]) + "," + str(percentages[5]) + "," + str(percentages[6]) + "," + str(percentages[7]) + "," + str(percentages[8])
         String result_fileName = "results.csv"
-        result_file = open(result_fileName, "w")
-        result_file.writelines(table)
-        result_file.close()
+        try {
+            File myObj = new File("Results.csv");
+            if (myObj.createNewFile()) {
+              System.out.println("File created: " + myObj.getName());
+            } else {
+              System.out.println("File already exists.");
+            }
+          } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+          }
     }
 
     public static void main(String[]args){
@@ -190,13 +219,13 @@ class BenfordsLaw{
         Scanner reader = new Scanner(System.in);
 
         // The variables that the user uses to access the different parts of the program
-    String userInput = "";
-    String fileLoad = "1";
-    String fileAnalyze = "2";
-    String graphGeneration = "3";
-    String exitCondition = "9";
-    String all_percentages = "";
-    String percentages = "";
+        String userInput = "";
+        String fileLoad = "1";
+        String fileAnalyze = "2";
+        String graphGeneration = "3";
+        String exitCondition = "9";
+        String all_percentages = "";
+        String percentages = "";
 
     // Checks which number the user inputted and directa them to the correct function
     while (userInput != exitCondition){
@@ -227,7 +256,7 @@ class BenfordsLaw{
         }
 
     }
-
+        System.out.println("Program terminated");
         reader.close();
     }
    
