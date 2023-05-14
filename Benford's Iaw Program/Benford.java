@@ -1,26 +1,16 @@
 // Benford's Law portion in Java
- 
+
 // Importations needed for the program to function
-package 
-import org.jfree.chart.JfreeChart;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.axis.CategoryAxis;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.labels.CategoryItemLabelGenerator;
-import org.jfree.chart.labels.ItemLabelAnchor;
-import org.jfree.chart.labels.ItemLabelPosition;
-import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.renderer.category.BarRenderer;
-import org.jfree.data.category.CategoryDataset;
-import org.jfree.ui.TextAnchor;
-import org.jfree.chart.ChartPanel;  
-import org.jfree.chart.plot.PlotOrientation; 
-import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.ApplicationFrame; 
-import org.jfree.ui.RefineryUtilities;
-import org.jfree.chart.renderer.category.StandardBarPainter;
+import java.util.Arrays;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.stage.Stage;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import java.util.Scanner;
 import java.util.function.*;
 import java.lang.Math.*;
@@ -33,10 +23,9 @@ import java.io.FileNotFoundException;
 import java.awt.Color;
 import java.io.IOException;
 
-
 class BenfordsLaw{
 
-    public static String[] loadFile(String delimiter){
+    public static String[] loadFile(){
         /**
          * Opens and reads the sales file for use late
          * 
@@ -44,28 +33,21 @@ class BenfordsLaw{
          */
         
          BufferedReader reader;
+      
+        try {
+            reader = new BufferedReader(new FileReader("sales.csv"));
+            String line = reader.readLine();
 
-         try {
-             reader = new BufferedReader(new FileReader("sales.csv"));
-             String line = reader.readLine();
- 
-             while (line != null) {
-                 System.out.println(line);
-                 // read next line
-                 line = reader.readLine();
-             }
- 
-             reader.close();
-         } catch (IOException e) {
-             e.printStackTrace();
-         }
-        
-        File datafile = new File("sales.csv");
-        BufferedReader fileReader = new Scanner(datafile);
-        fileReader.useDelimiter(",");
-        while(fileReader.hasNextLine()){
-            String data = fileReader.nextLine();
-            System.out.println(data);
+            while (line != null) {
+                System.out.println(line);
+                // read next line
+                line = reader.readLine();
+            }
+
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+
         }
          
     }
@@ -137,20 +119,30 @@ class BenfordsLaw{
 
         }
 
-        double first_percent = Math.round(num1/length*100, 2);
-        double second_percent = Math.round(num2/length*100, 2);
-        double third_percent = Math.round(num3/length*100, 2);
-        double fourth_percent = Math.round(num4/length*100, 2);
-        double fifth_percent = Math.round(num5/length*100, 2);
-        double sixth_percent = Math.round(num6/length*100, 2);
-        double seventh_percent = Math.round(num7/length*100, 2);
-        double eighth_percent = Math.round(num8/length*100, 2);
-        double ninth_percent = Math.round(num9/length*100, 2);
+        double first_percent = (num1/length*100);
+        double second_percent = (num2/length*100);
+        double third_percent = (num3/length*100);
+        double fourth_percent = (num4/length*100);
+        double fifth_percent = (num5/length*100);
+        double sixth_percent = (num6/length*100);
+        double seventh_percent = (num7/length*100);
+        double eighth_percent = (num8/length*100);
+        double ninth_percent = (num9/length*100);
+
+        first_percent = Math.round(first_percent);
+        second_percent = Math.round(second_percent);
+        third_percent = Math.round(third_percent);
+        fourth_percent = Math.round(fourth_percent);
+        fifth_percent = Math.round(fifth_percent);
+        sixth_percent = Math.round(sixth_percent);
+        seventh_percent = Math.round(seventh_percent);
+        eighth_percent = Math.round(eighth_percent);
+        ninth_percent = Math.round(ninth_percent);
 
         double[] all_percentages = {first_percent, second_percent, third_percent, fourth_percent, fifth_percent, sixth_percent, seventh_percent, eighth_percent, ninth_percent};
         
         // Benford's Law application
-        if (29 <= first_percent <= 32){
+        if ((first_percent >= 29) && (first_percent <= 32)){
             System.out.println("1: " + first_percent + "2: " + second_percent + "3: " + third_percent + "4: " + fourth_percent + "5: " + fifth_percent + "6: " + sixth_percent + "7: " + seventh_percent + "8: " + eighth_percent + "9: " + ninth_percent);
             System.out.println("The data suggests that fraud did not occur.");
         }
@@ -163,12 +155,22 @@ class BenfordsLaw{
     }
     
     
+    /**
+     * 
+     * Generates a graph with all the information provided by the sales data file
+     * @param all_percentages
+     */
     public static void generateGraph(double[] all_percentages){
+        /**
+         * Generates a graph with all the information provided by the sales data file
+         * 
+         * @param all
+         */
         // The x values that display which bar is which.
         String[] x_values = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
 
         // The y values that determine how high each bar is based on the percentages.
-        String[] y_values = Double.toString(all_percentages);
+        String[] y_values = {Double.toString(all_percentages[0]), Double.toString(all_percentages[1]), Double.toString(all_percentages[2]), Double.toString(all_percentages[3]), Double.toString(all_percentages[4]), Double.toString(all_percentages[5]), Double.toString(all_percentages[6]), Double.toString(all_percentages[7]), Double.toString(all_percentages[8])};
         String y_value1 = ("1 = " + (y_values[0]) + "%");
         String y_value2 = "2 = " + (y_values[1]) + "%";
         String y_value3 = "3 = " + (y_values[2]) + "%";
@@ -200,19 +202,22 @@ class BenfordsLaw{
 
         // Writes the sales data onto the results csv file
         String table = "1" + "," + "2" + "," + "3" + "," + "4" + "," + "5", "," + "6" + "," + "7" + "," + "8" + "," + "9\n" + str(percentages[0]) + "," + str(percentages[1]) + "," + str(percentages[2]) + "," + str(percentages[3]) + "," + str(percentages[4]) + "," + str(percentages[5]) + "," + str(percentages[6]) + "," + str(percentages[7]) + "," + str(percentages[8])
-        String result_fileName = "results.csv"
+        File CSVFile = new File("Results.csv")
         try {
             File myObj = new File("Results.csv");
             if (myObj.createNewFile()) {
               System.out.println("File created: " + myObj.getName());
+              FileWriter writer = new FileWriter("Results.csv");
+              writer.write(table);
+              writer.close();
             } else {
               System.out.println("File already exists.");
             }
-          } catch (IOException e) {
+    } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
           }
-    }
+    } 
 
     public static void main(String[]args){
 
