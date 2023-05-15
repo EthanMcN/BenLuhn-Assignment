@@ -25,33 +25,6 @@ import java.io.IOException;
 
 class BenfordsLaw{
 
-    public static String[] loadFile(){
-        /**
-         * Opens and reads the sales file for use late
-         * 
-         * @delimiter   Sets the delimiter for the file reading
-         */
-        
-         BufferedReader reader;
-      
-        try {
-            reader = new BufferedReader(new FileReader("sales.csv"));
-            String line = reader.readLine();
-
-            while (line != null) {
-                System.out.println(line);
-                // read next line
-                line = reader.readLine();
-            }
-
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-         
-    }
-
     public static void printMenu(){ 
         /*
         * Displays a menu for the user. Lists the numbers the user needs 
@@ -78,46 +51,66 @@ class BenfordsLaw{
         double num9 = 0.0;
         double length = 0.0;
         
-        // For loops that analyze the file in order to obtain the first digits
-        for (int line in file){
-            if ("1" in line[4]){
-                num1 = num1 + 1;
-                length = length + 1;
-            }
-            if ("2" in line[4]){
-                num2 = num2 + 1;
-                length = length + 1;
-            }
-            if ("3" in line[4]){
-                num3 = num3 + 1;
-                length = length + 1;
-            }
-            if ("4" in line[4]){
-                num4 = num4 + 1;
-                length = length + 1;
-            }
-            if ("5" in line[4]){
-                num5 = num5 + 1;
-                length = length + 1;
-            }
-            if ("6" in line[4]){
-                num6 = num6 + 1;
-                length = length + 1;
-            }
-            if ("7" in line[4]){
-                num7 = num7 + 1;
-                length = length + 1;
-            }
-            if ("8" in line[4]){
-                num8 = num8 + 1;
-                length = length + 1;
-            }
-            if ("9" in line[4]){
-                num9 = num9 + 1;
-                length = length + 1;
+        BufferedReader reader;
+        String line;
+      
+        try {
+            reader = new BufferedReader(new FileReader("sales.csv"));
+            line = reader.readLine();
+            char line_index;
+            String str_line_index;
+
+            while (line != null) {
+                System.out.println(line);
+                // read next line
+                line = reader.readLine();
+                line_index = line.charAt(4);
+                str_line_index = String.valueOf(line_index);
+
+                if ("1".equals(str_line_index)){
+                    num1 = num1 + 1;
+                    length = length + 1;
+                }
+                if ("2".equals(str_line_index)){
+                    num2 = num2 + 1;
+                    length = length + 1;
+                }
+                if ("3".equals(str_line_index)){
+                    num3 = num3 + 1;
+                    length = length + 1;
+                }
+                if ("4".equals(str_line_index)){
+                    num4 = num4 + 1;
+                    length = length + 1;
+                }
+                if ("5".equals(str_line_index)){
+                    num5 = num5 + 1;
+                    length = length + 1;
+                }
+                if ("6".equals(str_line_index)){
+                    num6 = num6 + 1;
+                    length = length + 1;
+                }
+                if ("7".equals(str_line_index)){
+                    num7 = num7 + 1;
+                    length = length + 1;
+                }
+                if ("8".equals(str_line_index)){
+                    num8 = num8 + 1;
+                    length = length + 1;
+                }
+                if ("9".equals(str_line_index)){
+                    num9 = num9 + 1;
+                    length = length + 1;
+                }
             }
 
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+
         }
+        // For loops that analyze the file in order to obtain the first digits
 
         double first_percent = (num1/length*100);
         double second_percent = (num2/length*100);
@@ -154,59 +147,84 @@ class BenfordsLaw{
         return all_percentages;
     }
     
-    
+    /**
+     * @param stage Sets the stage for the graph to be created on
+     * @param all_percentages The values of all the percentages based on the file
+     */
+    public static void generateGraph(Stage stage, Double[] all_percentages){
+        /**
+         * @stage Sets the stage for the bar graph to be put on
+         * @param all_percentages the values of all the percentages gathered from the file
+         */
+        CategoryAxis xAxis = new CategoryAxis();
+        NumberAxis yAxis = new NumberAxis();
+        stage.setTitle("Benford's Law Chart");
+        xAxis.setCategories(FXCollections.<String>observableArrayList(Arrays.asList(
+
+"Percentage"))); 
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        new BarChart<String,Number>(xAxis,yAxis);
+        barChart.setTitle("Benford's Law Distribution Leading Digit");
+        xAxis.setLabel("Digit");       
+        yAxis.setLabel("Percent");
+        XYChart.Series<String, Number> bar1 = new XYChart.Series<>(); 
+        bar1.setName("1");
+        bar1.getData().add(new XYChart.Data<>("Digit", all_percentages[0], Color.red));
+        XYChart.Series<String, Number> bar2 = new XYChart.Series<>(); 
+        bar2.setName("2");
+        bar2.getData().add(new XYChart.Data<>("Digit", all_percentages[1], Color.orange));
+        XYChart.Series<String, Number> bar3 = new XYChart.Series<>(); 
+        bar3.setName("3");
+        bar3.getData().add(new XYChart.Data<>("Digit", all_percentages[2], Color.yellow));
+        XYChart.Series<String, Number> bar4 = new XYChart.Series<>(); 
+        bar4.setName("4");
+        bar4.getData().add(new XYChart.Data<>("Digit", all_percentages[3], Color.green));
+        XYChart.Series<String, Number> bar5 = new XYChart.Series<>(); 
+        bar5.setName("5");
+        bar5.getData().add(new XYChart.Data<>("Digit", all_percentages[4], Color.cyan));
+        XYChart.Series<String, Number> bar6 = new XYChart.Series<>(); 
+        bar6.setName("6");
+        bar6.getData().add(new XYChart.Data<>("Digit", all_percentages[5], Color.blue));
+        XYChart.Series<String, Number> bar7 = new XYChart.Series<>(); 
+        bar7.setName("7");
+        bar7.getData().add(new XYChart.Data<>("Digit", all_percentages[6], Color.magenta));
+        XYChart.Series<String, Number> bar8 = new XYChart.Series<>(); 
+        bar8.setName("8");
+        bar8.getData().add(new XYChart.Data<>("Digit", all_percentages[7], Color.pink));
+        XYChart.Series<String, Number> bar9 = new XYChart.Series<>(); 
+        bar9.setName("9");
+        bar9.getData().add(new XYChart.Data<>("Digit", all_percentages[8], Color.black));
+        
+        //Finalizes the graph
+        barChart.getData().addAll(bar1, bar2, bar3, bar4, bar5, bar6, bar7, bar8, bar9);
+        Group root = new Group(barChart);
+        Scene scene = new Scene(root ,600, 300);
+        stage.setScene(scene);
+        stage.show();
+
+    }
     /**
      * 
      * Generates a graph with all the information provided by the sales data file
      * @param all_percentages
      */
-    public static void generateGraph(double[] all_percentages){
+    public static void generateFile(double[] all_percentages){
         /**
          * Generates a graph with all the information provided by the sales data file
          * 
          * @param all
          */
-        // The x values that display which bar is which.
-        String[] x_values = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
-
-        // The y values that determine how high each bar is based on the percentages.
-        String[] y_values = {Double.toString(all_percentages[0]), Double.toString(all_percentages[1]), Double.toString(all_percentages[2]), Double.toString(all_percentages[3]), Double.toString(all_percentages[4]), Double.toString(all_percentages[5]), Double.toString(all_percentages[6]), Double.toString(all_percentages[7]), Double.toString(all_percentages[8])};
-        String y_value1 = ("1 = " + (y_values[0]) + "%");
-        String y_value2 = "2 = " + (y_values[1]) + "%";
-        String y_value3 = "3 = " + (y_values[2]) + "%";
-        String y_value4 = "4 = " + (y_values[3]) + "%";
-        String y_value5 = "5 = " + (y_values[4]) + "%";
-        String y_value6 = "6 = " + (y_values[5]) + "%";
-        String y_value7 = "7 = " + (y_values[6]) + "%";
-        String y_value8 = "8 = " + (y_values[7]) + "%";
-        String y_value9 = "9 = " + (y_values[8]) + "%";
 
         // Plots each bar on each x and y value accordingly.
-        (x_values[0], y_values[0], color="red");
-        (x_values[1], y_values[1], color="green");
-        (x_values[2], y_values[2], color="blue");
-        (x_values[3], y_values[3], color="orange");
-        (x_values[4], y_values[4], color="yellow");
-        (x_values[5], y_values[5], color="pink");
-        (x_values[6], y_values[6], color="purple");
-        (x_values[7], y_values[7], color="black");
-        (x_values[8], y_values[8], color="brown");
 
         // Labels the x axis, y axis, creates a legend, gives the graph a title, and shows the graph    
-        title("Benford's Law Distribution Leading Digit")
-        legend([y_value1, y_value2, y_value3, y_value4, y_value5, y_value6, y_value7, y_value8, y_value9], loc=0)
-        xlabel("Digit")
-        ylabel("Percent")
-        show()
-        close()
 
         // Writes the sales data onto the results csv file
-        String table = "1" + "," + "2" + "," + "3" + "," + "4" + "," + "5", "," + "6" + "," + "7" + "," + "8" + "," + "9\n" + str(percentages[0]) + "," + str(percentages[1]) + "," + str(percentages[2]) + "," + str(percentages[3]) + "," + str(percentages[4]) + "," + str(percentages[5]) + "," + str(percentages[6]) + "," + str(percentages[7]) + "," + str(percentages[8])
-        File CSVFile = new File("Results.csv")
+        String table = ("1" + "," + "2" + "," + "3" + "," + "4" + "," + "5" + "," + "6" + "," + "7" + "," + "8" + "," + "9\n" + (all_percentages[0]) + "," + (all_percentages[1]) + "," + (all_percentages[2]) + "," + (all_percentages[3]) + "," + (all_percentages[4]) + "," + (all_percentages[5]) + "," + (all_percentages[6]) + "," + (all_percentages[7]) + "," + (all_percentages[8]));
         try {
-            File myObj = new File("Results.csv");
-            if (myObj.createNewFile()) {
-              System.out.println("File created: " + myObj.getName());
+            File CSVFile = new File("Results.csv");
+            if (CSVFile.createNewFile()) {
+              System.out.println("File created: " + CSVFile.getName());
               FileWriter writer = new FileWriter("Results.csv");
               writer.write(table);
               writer.close();
@@ -220,39 +238,33 @@ class BenfordsLaw{
     } 
 
     public static void main(String[]args){
-
+        Application.launch(args);
         Scanner reader = new Scanner(System.in);
 
         // The variables that the user uses to access the different parts of the program
         String userInput = "";
-        String fileLoad = "1";
         String fileAnalyze = "2";
         String graphGeneration = "3";
         String exitCondition = "9";
         String all_percentages = "";
-        String percentages = "";
 
     // Checks which number the user inputted and directa them to the correct function
     while (userInput != exitCondition){
         printMenu();
         userInput = reader.nextLine();
 
-        if (userInput.equals(fileLoad)){
-            String data = loadFile();
-        } 
-
-        else if(userInput.equals(fileAnalyze)){
-            if(data.equals("")){
-                System.out.println("You need to load the file first.");
-            }
-            else{
-                all_percentages = analyzeFile(file);
-            }
+        if(userInput.equals(fileAnalyze)){
+            analyzeFile();
+            
         }
 
         else if(userInput.equals(graphGeneration)){
             if(all_percentages.equals("")){
                 System.out.println("You need to analyze the file first.");
+            }
+            else{
+                generateGraph(null, null);
+                generateFile(null);
             }
         }
 
