@@ -1,10 +1,7 @@
 // Benford's Law portion in Java
 
 // Importations needed for the program to function
-import java.util.Arrays;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -12,27 +9,21 @@ import javafx.stage.Stage;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import java.util.Scanner;
-import java.util.function.*;
-import java.lang.Math.*;
-import java.text.DecimalFormat;
 import java.io.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.awt.Color;
 import java.io.IOException;                
-import javafx.scene.*;
 
 
 
-public class App implements Application{
+public class Benford{
 
+    /**
+     * Displays a menu for the user. Lists the numbers the user needs 
+     * to input to access the methods of the sales system.
+     */
     public static void printMenu(){ 
-        /*
-        * Displays a menu for the user. Lists the numbers the user needs 
-        * to input to access the functions of the sales system.
-        */
         System.out.println("Customer and Sales System");
         System.out.println("1. Analyze File");
         System.out.println("2. Generate Graph");
@@ -40,8 +31,17 @@ public class App implements Application{
         System.out.println("Enter menu option (1-9)");
     }
 
-    public static final String delimiter = ",";
+    /**
+     * Reads and analyzes the sales data file to gather information to determine whether or not it is fraud
+     * 
+     * @param csvFile The variable that locates the sales data file
+     * @return returns all the percentages gathered from the file
+     */
     public static double[] analyzeFile(String csvFile) {
+        // Sets the delimiter
+        String delimiter = ",";
+
+        // Variables to be modified when analyzing the file
         double num1 = 0.0;
         double num2 = 0.0;
         double num3 = 0.0;
@@ -54,13 +54,16 @@ public class App implements Application{
         double length = 0.0;
         char line_index;
         String str_line_index;
+
       try {
          File file = new File(csvFile);
-         FileReader fr = new FileReader(file);
-         BufferedReader br = new BufferedReader(fr);
+         FileReader fread = new FileReader(file);
+         BufferedReader buff = new BufferedReader(fread);
          String line = "";
          String[] tempArr;
-         while((line = br.readLine()) != null) {
+
+         //Checks to see if there are more lines in the file, and if there is then reads and runs the calculations
+         while((line = buff.readLine()) != null) {
             tempArr = line.split(delimiter);
             line_index = line.charAt(4);
             str_line_index = String.valueOf(line_index);
@@ -105,11 +108,13 @@ public class App implements Application{
             }
             System.out.println();
          }
-         br.close();
+         buff.close();
+        // Accounts for exceptions
          } catch(IOException ioe) {
             ioe.printStackTrace();
          }
-
+        
+        // Variables for each percentage, and calculates them using data from the file
         double first_percent = (num1/length*100);
         double second_percent = (num2/length*100);
         double third_percent = (num3/length*100);
@@ -129,7 +134,8 @@ public class App implements Application{
         seventh_percent = Math.round(seventh_percent);
         eighth_percent = Math.round(eighth_percent);
         ninth_percent = Math.round(ninth_percent);
-
+        
+        // All the percentages into one array
         double[] all_percentages = {first_percent, second_percent, third_percent, fourth_percent, fifth_percent, sixth_percent, seventh_percent, eighth_percent, ninth_percent};
         
         // Benford's Law application
@@ -141,7 +147,8 @@ public class App implements Application{
             System.out.println("1: " + first_percent + "2: " + second_percent + "3: " + third_percent + "4: " + fourth_percent + "5: " + fifth_percent + "6: " + sixth_percent + "7: " + seventh_percent + "8: " + eighth_percent + "9: " + ninth_percent);
             System.out.println("The data suggest that there was fraud present.");
         }
-
+        
+        // Returns all the percentages to the user and ends the methods
         return all_percentages;
    }
     
@@ -149,7 +156,8 @@ public class App implements Application{
      * @param stage Sets the stage for the graph to be created on
      * @param all_percentages The values of all the percentages based on the file
      */
-    @Override public static void generateGraph(Stage stage, double[]all_percentages) throws Exception {
+    public static void generateGraph(Stage stage, double[]all_percentages) throws Exception {
+        // Variables for labeling the bars
         String one = "1";
         String two = "2";
         String three = "3";
@@ -160,6 +168,7 @@ public class App implements Application{
         String eight = "8";
         String nine = "9";
 
+        // Sets the aethstetics for the chart
         stage.setTitle("Benford's Law Distribution Leading Digit");
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -168,7 +177,8 @@ public class App implements Application{
         xAxis.setLabel("Digit");       
         yAxis.setLabel("Percent");
         bc.setCategoryGap(1.0);
- 
+        
+        // Writes the bar chart using the values given
         XYChart.Series bar1 = new XYChart.Series();
         bar1.setName("1 = " + all_percentages[0] + "%");      
         bar1.getData().add(new XYChart.Data(one, all_percentages[0]));
@@ -218,16 +228,6 @@ public class App implements Application{
      * @param all_percentages
      */
     public static void generateFile(double[] all_percentages){
-        /**
-         * Generates a graph with all the information provided by the sales data file
-         * 
-         * @param all
-         */
-
-        // Plots each bar on each x and y value accordingly.
-
-        // Labels the x axis, y axis, creates a legend, gives the graph a title, and shows the graph    
-
         // Writes the sales data onto the results csv file
         String table = ("1" + "," + "2" + "," + "3" + "," + "4" + "," + "5" + "," + "6" + "," + "7" + "," + "8" + "," + "9\n" + (all_percentages[0]) + "," + (all_percentages[1]) + "," + (all_percentages[2]) + "," + (all_percentages[3]) + "," + (all_percentages[4]) + "," + (all_percentages[5]) + "," + (all_percentages[6]) + "," + (all_percentages[7]) + "," + (all_percentages[8]));
         try {
@@ -240,13 +240,20 @@ public class App implements Application{
             } else {
               System.out.println("File already exists.");
             }
+    // Accounts for exceptions
     } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
           }
     } 
 
+    /**
+     * Runs the methods above in accordance to what the user inputs
+     * 
+     * @param args stores the variables
+     */
     public static void main(String[]args){
+        // Defines variables for all methods to use
         Scanner reader = new Scanner(System.in);
         String file = "sales.csv";
         double [] all_percentages = {};
@@ -256,16 +263,15 @@ public class App implements Application{
         String fileAnalyze = "1";
         String graphGeneration = "2";
         String exitCondition = "9";
-        String percentages = "";
 
-    // Checks which number the user inputted and directa them to the correct function
+    // Checks which number the user inputted and directs them to the correct method
     while (userInput != exitCondition){
         printMenu();
         userInput = reader.nextLine();
 
 
         if(userInput.equals(fileAnalyze)){
-            App.analyzeFile(file);
+            analyzeFile(file);
             
         }
 
@@ -284,8 +290,10 @@ public class App implements Application{
         }
 
     }
-        System.out.println("Program terminated");
-        reader.close();
+
+    // Ends the program
+    System.out.println("Program terminated");
+    reader.close();
     }
    
 }
